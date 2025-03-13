@@ -1,0 +1,6 @@
+На създаденото копие на файла /etc/passwd във home директорията ви (би трябвало да е my_passwd) създайте символна връзка passwdlink, такава че да не се счупи при каквото и да е преместване на символната връзка.
+
+ln -s ~/my_passwd movable_symlink
+
+mv movable_symlink dir1/
+# symlink is still intact - if created with an absolute path to target (my_passwd)

@@ -1,0 +1,7 @@
+Отпечатайте потребителските имена и техните home директории от /etc/passwd.
+
+cat /etc/passwd | cut -f 1,6 -d ':'
+
+# additional
+Отпечатайте имената от /etc/passwd.
+cat /etc/passwd | cut -d ':' -f 5 | cut -d ',' -f 1

@@ -1,0 +1,21 @@
+Създайте директорията practice/01 във вашата home директория.
+Създайте 3 файла в нея - f1, f2, f3.
+Копирайте файловете f1, f2, f3 от директорията practice/01/ в директория dir1, намираща се във вашата home директория. Ако нямате такава, създайте я.
+
+
+mkdir -p practice/01
+# either
+cd practice/01
+touch f1 f2 f3
+mkdir ~/dir1
+cp f1 ~/dir1
+cp f2 ~/dir1
+cp f3 ~/dir1
+# week04: possible using brace expansion: cp f{1,2,3} ~/dir1
+# or
+touch practice/01/f1 practice/01/f2 practice/01/f3 # week04 could be done with brace expansion: touch practice/01/f{1,2,3}
+mkdir ~/dir1
+cp practice/01/f1 ~/dir1
+cp practice/01/f2 ~/dir1
+cp practice/01/f3 ~/dir1
+# end

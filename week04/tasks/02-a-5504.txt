@@ -1,0 +1,8 @@
+Изведете всички обикновени файлове в директорията /tmp които са от вашата група, които имат write права за достъп за група или за останалите(o=w)
+
+# get id first
+id -g # -> 512
+find /tmp -group 512 -perm -g=w,o=w 
+
+# week04: could be done with command substitution
+find /tmp -type f -group $(id -g) -perm -g=w,o=w 
