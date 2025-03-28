@@ -2,4 +2,4 @@
 директория myetc в home директорията ви. Направете такава, ако нямате.
 
 mkdir ~/myetc
-find /etc -perm -444 -exec cp {} ~/myetc
+find /etc -perm -444 -exec cp {} ~/myetc \;
