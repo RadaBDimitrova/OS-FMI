@@ -44,7 +44,7 @@ aux -> in detail (useful for tasks)
 
 # Redirections
 
-![alt text](https://www.google.com/url?sa=i&url=https%3A%2F%2Feffective-shell.com%2Fpart-2-core-skills%2Fthinking-in-pipelines%2F&psig=AOvVaw1bT5fpjSYEq7Exbfz33RMo&ust=1743273460433000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMiIve21rYwDFQAAAAAdAAAAABAJ)
+![alt text](image.png)
 
 > <file> -> redirects output to a file
 < <file> -> reads from file
