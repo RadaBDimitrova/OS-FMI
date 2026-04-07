@@ -1,23 +1,22 @@
 #!/bin/bash
 
+ps_res=$(mktemp)
 cmds=$(mktemp)
 count=0
 
-# could store ps result in a temp file or a variable
-ps_res=$(mktemp)
-ps -e -o comm=,rss= > "${ps_res}"
 
 while true; do
-        count=$((count + 1))
+        ps -e -o comm=,rss= > "${ps_res}"
+        count=$(( count + 1 )) # (( count++ ))
         BREAK=false
         while read comm; do
-            sum="$(cat "${ps_res}" | grep -E "^${comm}" | awk '{print $2}' | xargs | tr ' ' '+' | bc)" # xargs
-                if [[ "${sum}" -gt 65530 ]]; then
+            sum="$( grep -E "^${comm}\s" "${ps_res}" | awk '{print $2}' | xargs | tr ' ' '+' | bc)" # xargs way
+            # alternative: sum=$(awk -v cmd="${comm}" '$1 == cmd {s+=$2} END {print s+0}' "${ps_res}")
+                if [[ "${sum}" -gt 65536 ]]; then
                         echo "${comm}" >> "${cmds}"
                         BREAK=true
                 fi
-
-        done < <(cat "${ps_res}" | awk '{print $1}' | sort | uniq)
+        done < <( awk '{print $1}' "${ps_res}" | sort | uniq)
 
         if [[ "${BREAK}" == false ]]; then
             break
@@ -25,6 +24,5 @@ while true; do
         sleep 1
 done
 
-cat "${cmds}" | sort | uniq -c | awk -v count="${count}" '$1 > count/2' #conditional print in awk without if
-rm "${ps_res}"
-rm "${cmds}"
+sort "${cmds}" | uniq -c | awk -v count="${count}" '$1 > count/2 {print $2}' # conditional print in awk without if
+rm "${ps_res}" "${cmds}"
