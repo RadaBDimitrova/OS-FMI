@@ -1,12 +1,12 @@
 #!/bin/bash
 
-dict="$(mktemp)"
-files="$(mktemp)"
+dict=$(mktemp)
+files=$(mktemp)
 
 for arg in "${@}"; do
     if echo "${arg}" | grep -Eq "^-R[[:alnum:]]+=[[:alnum:]]+"; then
         echo "${arg}" | sed -E 's/-R([[:alnum:]]+=[[:alnum:]]+)/\1/' >> "${dict}"
-    elif echo "${arg}" | grep -Eqv "-" && [[ -f "${arg}" ]]; then
+    elif echo "${arg}" | grep -Eqv "^-" && [[ -f "${arg}" ]]; then
         echo "${arg}" >> "${files}"
     else
         echo "invalid arg: ${arg}"
@@ -25,6 +25,4 @@ while read filename; do
     sed -iE "s/${separator}//g" "${filename}"
 done < "${files}"
 
-
-rm "${dict}"
-rm "${files}"
+rm "${dict}" "${files}"
