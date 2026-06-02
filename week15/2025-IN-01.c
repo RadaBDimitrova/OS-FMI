@@ -95,12 +95,14 @@ void execute(const processor* info) {
         }
     }
 
-    lseek(fd, 0, SEEK_SET);
+    if (lseek(fd, 0, SEEK_SET) < 0 ) {
+        err(7, "lseek err")
+    }
     if (write(fd, regs, info->reg_count) != info->reg_count)
-        err(7, "write err registers");
+        err(8, "write err registers");
 
     if (write(fd, ram, info->ram_size) != info->ram_size)
-        err(8, "write err RAM");
+        err(9, "write err RAM");
 
     close(fd);
     exit(0);
@@ -129,6 +131,7 @@ int main(int argc, char* argv[]) {
 
     close(input_fd);
 
+    // there isn't a hard OR soft requirement for us to check anything
     while (wait(NULL) > 0);
 
     return 0;
